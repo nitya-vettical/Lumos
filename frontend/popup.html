@@ -1,0 +1,74 @@
+<!-- user interface for extension.-->
+<!-- <head> contains metadata and resources for doc. not visible on website but important for functionality-->
+<!--<body> is for user interaction and visible content.-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Coloublind Helper</title>
+        <style>
+            body{
+                width: 300px;
+                height: 400px; /* Set a specific height and width */
+                overflow: auto; /* Allow scrolling if content exceeds the size */
+                font-family:Arial, Helvetica, sans-serif;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+                background-color: #e6e6fa; /* Pastel cream background */
+                color: #4a4a4a; /* Soft gray text */
+            }
+
+            h1{
+                text-align: center;
+                margin-bottom: 20px;
+                color: #6a9fb5; /* Pastel blue */
+            }
+
+            button{
+                margin:5px 0;
+                padding:10px;
+                width: 200px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+                color: #ffffff; /* White text */
+                background-color: #6a9fb5; /* Pastel blue */
+                transition: background-color 0.3s ease;
+            }
+
+            button:hover {
+                background-color: #92c9a8; /* Slightly darker pastel green on hover */
+            }
+
+            h2{
+                text-align: center;
+                margin-bottom: 5px;
+            }
+
+            h4{
+                margin-bottom: 15px; /* Add spacing between resources */
+                text-align: center;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>Coloublind Helper</h1>
+        <button id="protanopia">Protanopia Filter</button>
+        <button id="deuteranopia">Deuteranopia Filter</button>
+        <button id="tritanopia">Tritanopia Filter</button>
+        <button id="reset">Reset</button>
+        <script src="popup.js"></script>
+
+        <h2>Educational Resources</h2>
+        <h4>https://www.colourblindawareness.org/education/</h4>
+        <h4>https://enchroma.com/blogs/beyond-color/unveiling-the-hidden-challenges-of-color-blindness-in-education</h4>
+        <h4>https://wearecolorblind.com/resources/</h4>
+    </body>
+</html>
