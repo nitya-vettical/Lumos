@@ -1,74 +1,123 @@
-<!-- user interface for extension.-->
-<!-- <head> contains metadata and resources for doc. not visible on website but important for functionality-->
-<!--<body> is for user interaction and visible content.-->
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Coloublind Helper</title>
-        <style>
-            body{
-                width: 300px;
-                height: 400px; /* Set a specific height and width */
-                overflow: auto; /* Allow scrolling if content exceeds the size */
-                font-family:Arial, Helvetica, sans-serif;
-                padding: 10px;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-                margin: 0;
-                background-color: #e6e6fa; /* Pastel cream background */
-                color: #4a4a4a; /* Soft gray text */
-            }
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lumos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            width: 320px;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1e1e24, #2a2a35);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-sizing: border-box;
+        }
 
-            h1{
-                text-align: center;
-                margin-bottom: 20px;
-                color: #6a9fb5; /* Pastel blue */
-            }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-            button{
-                margin:5px 0;
-                padding:10px;
-                width: 200px;
-                border: none;
-                border-radius: 5px;
-                font-size: 16px;
-                cursor: pointer;
-                color: #ffffff; /* White text */
-                background-color: #6a9fb5; /* Pastel blue */
-                transition: background-color 0.3s ease;
-            }
+        .header h1 {
+            font-size: 24px;
+            margin: 0;
+            font-weight: 600;
+            background: -webkit-linear-gradient(45deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .header p {
+            font-size: 12px;
+            color: #a0a0b0;
+            margin: 5px 0 0 0;
+        }
 
-            button:hover {
-                background-color: #92c9a8; /* Slightly darker pastel green on hover */
-            }
+        .controls {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 12px;
+        }
 
-            h2{
-                text-align: center;
-                margin-bottom: 5px;
-            }
+        button {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            padding: 12px;
+            font-size: 14px;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
 
-            h4{
-                margin-bottom: 15px; /* Add spacing between resources */
-                text-align: center;
-            }
+        button:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
 
-        </style>
-    </head>
+        button.active {
+            background: rgba(79, 172, 254, 0.15);
+            border-color: #4facfe;
+            box-shadow: 0 0 10px rgba(79, 172, 254, 0.2);
+        }
 
-    <body>
-        <h1>Coloublind Helper</h1>
-        <button id="protanopia">Protanopia Filter</button>
-        <button id="deuteranopia">Deuteranopia Filter</button>
-        <button id="tritanopia">Tritanopia Filter</button>
-        <button id="reset">Reset</button>
-        <script src="popup.js"></script>
+        .reset-btn {
+            margin-top: 10px;
+            background: rgba(255, 75, 75, 0.1);
+            border-color: rgba(255, 75, 75, 0.3);
+            color: #ff6b6b;
+        }
 
-        <h2>Educational Resources</h2>
-        <h4>https://www.colourblindawareness.org/education/</h4>
-        <h4>https://enchroma.com/blogs/beyond-color/unveiling-the-hidden-challenges-of-color-blindness-in-education</h4>
-        <h4>https://wearecolorblind.com/resources/</h4>
-    </body>
+        .reset-btn:hover {
+            background: rgba(255, 75, 75, 0.2);
+            border-color: rgba(255, 75, 75, 0.5);
+        }
+
+        .footer {
+            margin-top: 24px;
+            font-size: 11px;
+            color: #707080;
+            text-align: center;
+        }
+        .footer a {
+            color: #4facfe;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Lumos</h1>
+        <p>Color Accessibility Helper</p>
+    </div>
+
+    <div class="controls">
+        <button id="protanopia">Protanopia</button>
+        <button id="deuteranopia">Deuteranopia</button>
+        <button id="tritanopia">Tritanopia</button>
+        <button id="achromatopsia">Grayscale</button>
+        <button id="reset" class="reset-btn">Turn Off</button>
+    </div>
+
+    <div class="footer">
+        Learn more about <a href="https://wearecolorblind.com/" target="_blank">Color Blindness</a>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
 </html>

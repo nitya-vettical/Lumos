@@ -4,7 +4,7 @@
   "name": "Colorblind Helper",
   "version": "1.0",
   "description": "A Chrome extension to assist colorblind users with color adjustments.",
-  "permissions": ["activeTab", "scripting"],
+  "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],
   "icons":{
     "16":"icon16.png",
