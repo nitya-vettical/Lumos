@@ -4,22 +4,22 @@
 
 ---
 
-## 🌟 Key Features
+## Key Features
 
-*   **✨ Dual Modes (Assistance vs. Simulation):**
+*   **Dual Modes (Assistance vs. Simulation):**
     *   **Assistance Mode (Daltonization):** Uses mathematically derived linear matrix transformations (Fidaner/Anagnostopoulos model) to shift indistinguishable red/green color ranges into visible blue/yellow contrast dimensions.
     *   **Simulation Mode (Auditing):** Simulates how individuals with Color Vision Deficiency (CVD) perceive web pages, enabling designers to audit charts, UI components, and WCAG compliance.
-*   **⚡ Zero-Overhead Content Script Injection:** Manifest V3 content scripts execute at `document_start` to apply GPU-accelerated SVG `<feColorMatrix>` definitions with zero layout jank or load-time delay.
-*   **🔄 Automatic Cross-Tab Storage Sync:** Instant state synchronization across all open tabs via `chrome.storage.onChanged` without requiring page reloads.
-*   **🎛️ 0% - 100% Intensity Control:** Fine-tune matrix weight parameters to match mild, moderate, or severe degrees of color deficiency.
-*   **🏷️ Extension Toolbar Action Badges:** Real-time visual indicator (`PRO`, `DEU`, `TRIT`, `GRAY`) displayed on the extension icon.
-*   **⌨️ Global Hotkeys:** Toggle Lumos filters on/off anywhere on the web using `Alt + Shift + L`.
-*   **🖥️ Interactive Web Landing Page (`/landing`):** Features an in-browser sandbox demo allowing prospective users to test filters on a sample dashboard.
-*   **🛡️ 100% Private & Open Source:** Operates entirely client-side. No tracking, telemetry, or user data ever leaves the browser.
+*   **Zero-Overhead Content Script Injection:** Manifest V3 content scripts execute at `document_start` to apply GPU-accelerated SVG `<feColorMatrix>` definitions with zero layout jank or load-time delay.
+*   **Automatic Cross-Tab Storage Sync:** Instant state synchronization across all open tabs via `chrome.storage.onChanged` without requiring page reloads.
+*   **0% - 100% Intensity Control:** Fine-tune matrix weight parameters to match mild, moderate, or severe degrees of color deficiency.
+*   **Extension Toolbar Action Badges:** Real-time visual indicator (`PRO`, `DEU`, `TRIT`, `GRAY`) displayed on the extension icon.
+*   **Global Hotkeys:** Toggle Lumos filters on/off anywhere on the web using `Alt + Shift + L`.
+*   **Interactive Web Landing Page (`/landing`):** Features an in-browser sandbox demo allowing prospective users to test filters on a sample dashboard.
+*   **100% Private & Open Source:** Operates entirely client-side. No tracking, telemetry, or user data ever leaves the browser.
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```
 Lumos/
@@ -42,7 +42,7 @@ Lumos/
 
 ---
 
-## 🚀 Installation & Developer Setup
+## Installation & Developer Setup
 
 ### 1. Chrome Extension (Developer Mode)
 
@@ -65,7 +65,7 @@ Then open `http://localhost:3000` in your web browser.
 
 ---
 
-## 🎹 Keyboard Shortcuts
+## Keyboard Shortcuts
 
 | Shortcut | Description |
 | :--- | :--- |
@@ -74,7 +74,7 @@ Then open `http://localhost:3000` in your web browser.
 
 ---
 
-## 📈 Marketing & User Acquisition Strategy
+## Marketing & User Acquisition Strategy
 
 See [`MARKETING_STRATEGY.md`](MARKETING_STRATEGY.md) for a comprehensive guide on:
 - Chrome Web Store SEO optimization (Keywords, metadata, screenshot guidelines).
@@ -84,7 +84,7 @@ See [`MARKETING_STRATEGY.md`](MARKETING_STRATEGY.md) for a comprehensive guide o
 
 ---
 
-## 📚 Educational Resources & References
+## Educational Resources & References
 
 - [Colour Blind Awareness UK](https://www.colourblindawareness.org/education/)
 - [We Are Colorblind - Design Resources](https://wearecolorblind.com/resources/)
