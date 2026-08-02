@@ -1,22 +1,49 @@
-
 {
   "manifest_version": 3,
-  "name": "Colorblind Helper",
-  "version": "1.0",
-  "description": "A Chrome extension to assist colorblind users with color adjustments.",
-  "permissions": ["activeTab", "scripting", "storage"],
-  "host_permissions": ["<all_urls>"],
-  "icons":{
-    "16":"icon16.png",
-    "48":"icon48.png",
-    "64":"icon128.png"
+  "name": "Lumos - Colorblindness Assistant & Simulator",
+  "version": "1.1.0",
+  "description": "Assist colorblind individuals with real-time Daltonization contrast correction and simulate color vision deficiencies for accessibility testing.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
   "action": {
-      "default_popup": "popup.html",
-      "default_icon": "icon48.png"
+    "default_popup": "popup.html",
+    "default_icon": "icon48.png"
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L",
+        "mac": "Command+Shift+L"
+      }
+    },
+    "toggle-filter": {
+      "suggested_key": {
+        "default": "Alt+Shift+L",
+        "mac": "Alt+Shift+L"
+      },
+      "description": "Toggle color filter on/off"
+    }
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
   }
-  
 }
-
-
-

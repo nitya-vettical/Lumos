@@ -3,119 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <title>Lumos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            width: 320px;
-            margin: 0;
-            padding: 20px;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e1e24, #2a2a35);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            width: 350px;
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #0f111a;
+            color: #f8fafc;
+            padding: 16px;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(255, 159, 67, 0.1) 0px, transparent 50%);
         }
 
         .header {
-            text-align: center;
-            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-            font-weight: 600;
-            background: -webkit-linear-gradient(45deg, #00f2fe, #4facfe);
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: #0f111a;
+            box-shadow: 0 4px 12px rgba(79, 172, 254, 0.3);
+        }
+
+        .brand-text h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
-        .header p {
-            font-size: 12px;
-            color: #a0a0b0;
-            margin: 5px 0 0 0;
+
+        .brand-text p {
+            font-size: 11px;
+            color: #94a3b8;
         }
 
-        .controls {
+        /* Power Toggle Switch */
+        .power-toggle {
+            position: relative;
+            display: inline-block;
+            width: 46px;
+            height: 24px;
+        }
+
+        .power-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background-color: #94a3b8;
+            transition: .3s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border-color: transparent;
+            box-shadow: 0 0 12px rgba(79, 172, 254, 0.4);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(22px);
+            background-color: #0f111a;
+        }
+
+        /* Mode Tabs */
+        .tab-container {
             display: flex;
-            flex-direction: column;
-            width: 100%;
-            gap: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 4px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
-        button {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: #fff;
-            padding: 12px;
-            font-size: 14px;
-            font-family: inherit;
+        .tab-btn {
+            flex: 1;
+            padding: 8px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            border-radius: 7px;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
-            justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            justify-content: center;
+            gap: 6px;
         }
 
-        button:hover {
+        .tab-btn.active {
             background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .tab-btn[data-mode="assist"].active {
+            color: #38bdf8;
+        }
+
+        .tab-btn[data-mode="simulate"].active {
+            color: #fb923c;
+        }
+
+        /* Section Title */
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            margin-bottom: 10px;
+        }
+
+        /* Filter Grid */
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .filter-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .filter-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 255, 255, 0.15);
             transform: translateY(-1px);
         }
 
-        button.active {
-            background: rgba(79, 172, 254, 0.15);
-            border-color: #4facfe;
-            box-shadow: 0 0 10px rgba(79, 172, 254, 0.2);
+        .filter-card.active {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: #38bdf8;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.15);
         }
 
-        .reset-btn {
-            margin-top: 10px;
-            background: rgba(255, 75, 75, 0.1);
-            border-color: rgba(255, 75, 75, 0.3);
-            color: #ff6b6b;
+        body[data-active-mode="simulate"] .filter-card.active {
+            background: rgba(251, 146, 60, 0.1);
+            border-color: #fb923c;
+            box-shadow: 0 0 12px rgba(251, 146, 60, 0.15);
         }
 
-        .reset-btn:hover {
-            background: rgba(255, 75, 75, 0.2);
-            border-color: rgba(255, 75, 75, 0.5);
+        .filter-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #f1f5f9;
         }
 
+        .filter-desc {
+            font-size: 10.5px;
+            color: #94a3b8;
+        }
+
+        /* Slider Control */
+        .slider-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 16px;
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .slider-val {
+            font-weight: 700;
+            color: #38bdf8;
+        }
+
+        body[data-active-mode="simulate"] .slider-val {
+            color: #fb923c;
+        }
+
+        input[type=range] {
+            width: 100%;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.1);
+            height: 6px;
+            border-radius: 3px;
+            outline: none;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #38bdf8;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+            transition: all 0.15s ease;
+        }
+
+        body[data-active-mode="simulate"] input[type=range]::-webkit-slider-thumb {
+            background: #fb923c;
+            box-shadow: 0 0 8px rgba(251, 146, 60, 0.5);
+        }
+
+        /* Footer & Hotkey */
         .footer {
-            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             font-size: 11px;
-            color: #707080;
-            text-align: center;
+            color: #64748b;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
-        .footer a {
-            color: #4facfe;
+
+        .hotkey-badge {
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #94a3b8;
+            font-size: 10px;
+        }
+
+        a {
+            color: #38bdf8;
             text-decoration: none;
         }
-        .footer a:hover {
+
+        a:hover {
             text-decoration: underline;
         }
     </style>
 </head>
-<body>
+<body data-active-mode="assist">
     <div class="header">
-        <h1>Lumos</h1>
-        <p>Color Accessibility Helper</p>
+        <div class="brand">
+            <div class="logo-icon">L</div>
+            <div class="brand-text">
+                <h1>Lumos</h1>
+                <p id="subheading-text">Color Vision Assistant</p>
+            </div>
+        </div>
+        <label class="power-toggle" title="Toggle Lumos On/Off">
+            <input type="checkbox" id="power-switch">
+            <span class="toggle-slider"></span>
+        </label>
     </div>
 
-    <div class="controls">
-        <button id="protanopia">Protanopia</button>
-        <button id="deuteranopia">Deuteranopia</button>
-        <button id="tritanopia">Tritanopia</button>
-        <button id="achromatopsia">Grayscale</button>
-        <button id="reset" class="reset-btn">Turn Off</button>
+    <!-- Mode Tabs -->
+    <div class="tab-container">
+        <button class="tab-btn active" data-mode="assist" id="tab-assist">
+            <span>✨ Assistance</span>
+        </button>
+        <button class="tab-btn" data-mode="simulate" id="tab-simulate">
+            <span>👁️ Simulation</span>
+        </button>
     </div>
 
+    <!-- Filter Selection Grid -->
+    <div class="section-label" id="grid-label">Select Assistance Filter</div>
+    <div class="filter-grid">
+        <div class="filter-card active" data-type="protanopia">
+            <div class="filter-title">Protanopia</div>
+            <div class="filter-desc">Red-blind vision</div>
+        </div>
+        <div class="filter-card" data-type="deuteranopia">
+            <div class="filter-title">Deuteranopia</div>
+            <div class="filter-desc">Green-blind vision</div>
+        </div>
+        <div class="filter-card" data-type="tritanopia">
+            <div class="filter-title">Tritanopia</div>
+            <div class="filter-desc">Blue-blind vision</div>
+        </div>
+        <div class="filter-card" data-type="achromatopsia">
+            <div class="filter-title">Grayscale</div>
+            <div class="filter-desc">Total colorblindness</div>
+        </div>
+    </div>
+
+    <!-- Severity Slider -->
+    <div class="slider-section">
+        <div class="slider-header">
+            <span>Filter Intensity</span>
+            <span class="slider-val" id="intensity-val">100%</span>
+        </div>
+        <input type="range" id="intensity-slider" min="10" max="100" value="100" step="5">
+    </div>
+
+    <!-- Footer & Hotkey -->
     <div class="footer">
-        Learn more about <a href="https://wearecolorblind.com/" target="_blank">Color Blindness</a>
+        <span>Shortcut: <span class="hotkey-badge">Alt + Shift + L</span></span>
+        <a href="https://github.com/nitya-vettical/Lumos" target="_blank">Documentation</a>
     </div>
 
     <script src="popup.js"></script>
