@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumos | Intelligent Colorblindness Assistance & Vision Simulator</title>
+    <meta name="description" content="Lumos is a modern, high-performance Chrome extension delivering real-time Daltonization color contrast assistance for colorblind users and WCAG accessibility simulation for developers.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Embedded SVG Filters for Web Sandbox -->
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <defs>
+            <!-- Assist Matrices -->
+            <filter id="sandbox-assist-protanopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="1 0 0 0 0 -0.255 1.255 0 0 0 0.303 -0.545 1.242 0 0 0 0 0 1 0" />
+            </filter>
+            <filter id="sandbox-assist-deuteranopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="1 0 0 0 0 -0.4375 1.4375 0 0 0 0.2625 -0.5625 1.3 0 0 0 0 0 1 0" />
+            </filter>
+            <filter id="sandbox-assist-tritanopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="1 0 0.397 0 0 0 1 0.367 0 0 0 0 0.475 0 0 0 0 0 1 0" />
+            </filter>
+
+            <!-- Simulate Matrices -->
+            <filter id="sandbox-simulate-protanopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="0.56667 0.43333 0 0 0 0.55833 0.44167 0 0 0 0 0.24167 0.75833 0 0 0 0 0 1 0" />
+            </filter>
+            <filter id="sandbox-simulate-deuteranopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="0.625 0.375 0 0 0 0.7 0.3 0 0 0 0 0.3 0.7 0 0 0 0 0 1 0" />
+            </filter>
+            <filter id="sandbox-simulate-tritanopia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="0.95 0.05 0 0 0 0 0.43333 0.56667 0 0 0 0.475 0.525 0 0 0 0 0 1 0" />
+            </filter>
+            <filter id="sandbox-achromatopsia" color-interpolation-filters="linearRGB">
+                <feColorMatrix type="matrix" values="0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0.299 0.587 0.114 0 0 0 0 0 1 0" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <div class="brand-logo">L</div>
+                <span class="brand-name">Lumos</span>
+                <span class="badge">v1.1</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#demo">Live Demo</a>
+                <a href="#features">Features</a>
+                <a href="#education">Color Vision</a>
+                <a href="https://github.com/nitya-vettical/Lumos" target="_blank" class="github-link">GitHub Repo</a>
+                <a href="#install" class="btn btn-primary btn-sm">Add to Chrome</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="pill-badge">
+                <span class="pill-dot"></span> Chrome Extension & Accessibility Suite
+            </div>
+            <h1 class="hero-title">Experience the Web with <br><span class="gradient-text">Perfect Color Clarity</span></h1>
+            <p class="hero-subtitle">
+                Lumos applies real-time mathematical Daltonization to enhance color contrast for colorblind users, while empowering web developers to simulate color vision deficiencies for WCAG auditing.
+            </p>
+            <div class="hero-actions" id="install">
+                <a href="https://github.com/nitya-vettical/Lumos" target="_blank" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    Install Extension (Free)
+                </a>
+                <a href="#demo" class="btn btn-secondary btn-lg">
+                    Try Interactive Demo
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-num">4</span>
+                    <span class="stat-desc">CVD Types Supported</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">0 ms</span>
+                    <span class="stat-desc">Load Time Overhead</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-num">100%</span>
+                    <span class="stat-desc">Private & Client-Side</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Live Sandbox Demo -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Test Lumos Right in Your Browser</h2>
+                <p class="section-subtitle">Select a color vision filter below to see Lumos perform real-time Daltonization contrast correction on a sample UI dashboard.</p>
+            </div>
+
+            <!-- Demo Toolbar -->
+            <div class="demo-toolbar glass-panel">
+                <div class="toolbar-group">
+                    <span class="group-label">Mode:</span>
+                    <button class="mode-btn active" data-mode="assist">Assistance (Daltonization)</button>
+                    <button class="mode-btn" data-mode="simulate">Simulation (Audit)</button>
+                </div>
+                <div class="toolbar-group">
+                    <span class="group-label">Filter:</span>
+                    <button class="filter-btn active" data-filter="protanopia">Protanopia</button>
+                    <button class="filter-btn" data-filter="deuteranopia">Deuteranopia</button>
+                    <button class="filter-btn" data-filter="tritanopia">Tritanopia</button>
+                    <button class="filter-btn" data-filter="achromatopsia">Grayscale</button>
+                    <button class="filter-btn reset-btn" data-filter="none">Original (Off)</button>
+                </div>
+            </div>
+
+            <!-- Demo Stage / Preview Box -->
+            <div class="sandbox-container glass-panel">
+                <div class="sandbox-preview" id="sandbox-preview">
+                    <!-- Sample UI Graphic Component -->
+                    <div class="sample-dashboard">
+                        <div class="dashboard-header">
+                            <div class="dash-title">Financial Analytics Dashboard</div>
+                            <div class="status-tags">
+                                <span class="tag tag-success">● System Normal</span>
+                                <span class="tag tag-warning">▲ Traffic Surge</span>
+                                <span class="tag tag-danger">✖ 2 Critical Alerts</span>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <div class="metric-card card-green">
+                                <h3>Revenue Growth</h3>
+                                <div class="metric-val">+28.4%</div>
+                                <div class="bar-chart">
+                                    <div class="bar green" style="height: 65%;"></div>
+                                    <div class="bar green" style="height: 85%;"></div>
+                                    <div class="bar green" style="height: 95%;"></div>
+                                </div>
+                            </div>
+                            <div class="metric-card card-red">
+                                <h3>Server Churn Rate</h3>
+                                <div class="metric-val">-14.2%</div>
+                                <div class="bar-chart">
+                                    <div class="bar red" style="height: 40%;"></div>
+                                    <div class="bar red" style="height: 60%;"></div>
+                                    <div class="bar red" style="height: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="metric-card card-yellow">
+                                <h3>Pending Reviews</h3>
+                                <div class="metric-val">1,204</div>
+                                <div class="bar-chart">
+                                    <div class="bar yellow" style="height: 50%;"></div>
+                                    <div class="bar yellow" style="height: 70%;"></div>
+                                    <div class="bar yellow" style="height: 55%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sample Spectrum Palette -->
+                        <div class="spectrum-bar">
+                            <div class="color-swatch c-red">Red</div>
+                            <div class="color-swatch c-orange">Orange</div>
+                            <div class="color-swatch c-yellow">Yellow</div>
+                            <div class="color-swatch c-green">Green</div>
+                            <div class="color-swatch c-cyan">Cyan</div>
+                            <div class="color-swatch c-blue">Blue</div>
+                            <div class="color-swatch c-purple">Purple</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sandbox-caption">
+                    <span id="active-filter-label">Active Filter: Protanopia Assistance (Daltonized)</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Engineered for Performance & Precision</h2>
+                <p class="section-subtitle">Lumos combines advanced linear algebra with modern browser standards to deliver an effortless accessibility experience.</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Zero-Overhead Injection</h3>
+                    <p>Utilizes Manifest V3 content scripts injected at <code>document_start</code> to apply native GPU-accelerated SVG matrix operations with zero layout jank.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">🔄</div>
+                    <h3>Instant Cross-Tab Storage Sync</h3>
+                    <p>Changing your filter preferences in the extension popup instantly updates all open tabs and windows without forcing page reloads.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">🎛️</div>
+                    <h3>0-100% Severity Control</h3>
+                    <p>Fine-tune matrix weight parameters to match mild, moderate, or severe degrees of color deficiency.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">⌨️</div>
+                    <h3>Native Hotkey Shortcuts</h3>
+                    <p>Toggle Lumos on and off anywhere on the web using <code>Alt + Shift + L</code> without breaking your flow.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">🎨</div>
+                    <h3>WCAG Audit Simulator</h3>
+                    <p>Web developers and accessibility designers can test their websites against Protanopia, Deuteranopia, Tritanopia, and Achromatopsia standards.</p>
+                </div>
+                <div class="feature-card glass-panel">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>100% Privacy Preserved</h3>
+                    <p>Lumos operates strictly on your local browser engine. No web traffic, screenshots, or browsing history are ever transmitted or tracked.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Educational Section -->
+    <section class="education-section" id="education">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Understanding Color Vision Deficiency</h2>
+                <p class="section-subtitle">Over 300 million people worldwide live with color vision deficiencies. Here is how Lumos helps.</p>
+            </div>
+
+            <div class="edu-grid">
+                <div class="edu-card glass-panel">
+                    <div class="edu-badge red">Protanopia</div>
+                    <h3>Red-Cone Deficiency</h3>
+                    <p>Affects approximately 1.3% of males. Individuals struggle to perceive red light, causing reds, oranges, and greens to merge into similar muted tones.</p>
+                </div>
+                <div class="edu-card glass-panel">
+                    <div class="edu-badge green">Deuteranopia</div>
+                    <h3>Green-Cone Deficiency</h3>
+                    <p>The most common form (~5% of males). Green photoreceptors are absent or impaired, making red/green distinctions difficult.</p>
+                </div>
+                <div class="edu-card glass-panel">
+                    <div class="edu-badge blue">Tritanopia</div>
+                    <h3>Blue-Cone Deficiency</h3>
+                    <p>A rare condition (~0.008% of population) where blue photoreceptors are lacking, leading to confusion between blue/green and yellow/pink.</p>
+                </div>
+                <div class="edu-card glass-panel">
+                    <div class="edu-badge gray">Achromatopsia</div>
+                    <h3>Complete Monochromacy</h3>
+                    <p>Total absence of color vision, perceiving the world in shades of gray, black, and white. High contrast rendering becomes vital.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Banner -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card glass-panel">
+                <h2>Ready to Transform Your Browsing Experience?</h2>
+                <p>Install Lumos today and join hundreds of users experiencing a clearer, more accessible web.</p>
+                <div class="cta-buttons">
+                    <a href="https://github.com/nitya-vettical/Lumos" target="_blank" class="btn btn-primary btn-lg">Download from GitHub / Chrome Store</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <div class="brand">
+                    <div class="brand-logo">L</div>
+                    <span class="brand-name">Lumos</span>
+                </div>
+                <p>Modern Colorblindness Assistance & Accessibility Suite.</p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/nitya-vettical/Lumos" target="_blank">GitHub</a>
+                <a href="https://wearecolorblind.com/" target="_blank">We Are Colorblind</a>
+                <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank">WCAG Guidelines</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Lumos Project. Open Source Software (MIT License).</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
